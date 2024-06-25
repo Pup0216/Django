@@ -15,3 +15,7 @@ class Contact( models.Model ):
     #para colocar como opcional adicionar 'blank = True' depois do maxLength
     created_at = models.DateTimeField(default=timezone.now) #quando o campo for criado;
     description = models.TextField()
+
+    #Esse nome aparecerá na admin do django
+    def __str__(self) -> str:
+        return f'{self.id} {self.name} {self.last_name} {self.email}'
