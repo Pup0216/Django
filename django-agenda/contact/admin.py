@@ -4,7 +4,7 @@ from contact import models
 
 @admin.register(models.Contact)
 class ContactAdmin(admin.ModelAdmin):
-    list_display = 'id','name','last_name','email',
+    list_display = 'id','name','last_name','email','category'
     ordering = 'id',
     list_filter = 'created_at',
     search_fields = 'id','name','last_name',
@@ -12,3 +12,8 @@ class ContactAdmin(admin.ModelAdmin):
     list_max_show_all = 100
     list_editable = 'name','last_name',
     list_display_links = 'id',
+
+@admin.register(models.Category)
+class CategoryAdmin(admin.ModelAdmin):
+    list_display = 'id','name',
+
