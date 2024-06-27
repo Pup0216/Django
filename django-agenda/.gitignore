@@ -1,3 +1,4 @@
 static
 media/
 venv
+agenda/local_settings.py
