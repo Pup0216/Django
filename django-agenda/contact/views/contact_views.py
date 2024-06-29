@@ -7,7 +7,8 @@ from django.http import Http404
 def index(request):
     contacts = Contact.objects.filter(show = True).order_by('id')[0:10]
     context = {
-        'contacts' : contacts
+        'contacts' : contacts,
+        'title' : 'Agenda'
     }
     #print(contacts.query)
     return render(request,'contact/index.html',context)
@@ -20,6 +21,7 @@ def contact(request, id):
     
     
     context = { 
-        'contact' : contact
+        'contact' : contact,
+        'title' : contact.name
     }
     return render(request,'contact/contact.html',context)
