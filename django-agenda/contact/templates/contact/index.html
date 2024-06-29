@@ -1,1 +1,14 @@
 {% extends "global/base.html" %}
+{% block content %}
+<div class="responsive-table">
+    <h2>Contacts</h2>
+    {% for c in contacts %}
+        {{ c.name }}
+        <br/>
+    {% endfor %}
+</div>
+
+{% endblock content %}
+
+
+
