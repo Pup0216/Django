@@ -1,13 +1,20 @@
 from django.shortcuts import render,redirect
 from contact.models import Contact
 from django.http import Http404
+from django.core.paginator import Paginator
+
+
 
 # Create your views here.
 
 def index(request):
-    contacts = Contact.objects.filter(show = True).order_by('id')[0:10]
+    contacts = Contact.objects.filter(show = True).order_by('id')
+    paginator = Paginator(contacts, 10)  # Show 10 contacts per page.
+
+    page_number = request.GET.get("page")
+    page_obj = paginator.get_page(page_number)
     context = {
-        'contacts' : contacts,
+        'page_obj' : page_obj,
         'title' : 'Agenda'
     }
     #print(contacts.query)
@@ -34,16 +41,23 @@ def search(request):
         print("Redirecionando...")
         return redirect('contact:index')
 
-    print(value)
     contacts = Contact.objects.filter(show = True)\
     .filter(name__icontains=value)\
     .order_by('-id')
 
     #lookup
 
+    paginator = Paginator(contacts, 10)  # Show 10 contacts per page.
+
+    page_number = request.GET.get("page")
+    page_obj = paginator.get_page(page_number)
+
 
     context = {
-        'contacts': contacts,
+        'page_obj': page_obj,
         'title' : 'Agenda',
     }
     return render(request,'contact/index.html',context)
+
+
+
