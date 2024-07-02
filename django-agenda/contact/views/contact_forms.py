@@ -8,7 +8,9 @@ from django.core.paginator import Paginator
 # Create your views here.
 
 def create(request):
-   
+    if request.POST:
+        print(request.POST.get("name"))
+        print(request.POST.get("last_name"))
     context = {
  
     }
