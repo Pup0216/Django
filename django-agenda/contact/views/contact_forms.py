@@ -1,17 +1,24 @@
-from django.shortcuts import render,redirect
-from contact.models import Contact
-from django.http import Http404
-from django.core.paginator import Paginator
+from typing import Any
+from django.shortcuts import render
 
+#forms
+from contact.forms import ContactForm
 
 
 # Create your views here.
 
 def create(request):
     if request.POST:
-        print(request.POST.get("name"))
-        print(request.POST.get("last_name"))
+        context = {
+            'form': ContactForm(request.POST)
+        }
+        print("Dados recebidos")
+        return render(request,'contact/create.html',context)
     context = {
- 
+        'form': ContactForm()
     }
     return render(request,'contact/create.html',context)
+
+
+  
+    
