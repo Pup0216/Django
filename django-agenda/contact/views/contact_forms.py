@@ -1,5 +1,5 @@
 from typing import Any
-from django.shortcuts import render
+from django.shortcuts import render,redirect
 
 #forms
 from contact.forms import ContactForm
@@ -9,10 +9,17 @@ from contact.forms import ContactForm
 
 def create(request):
     if request.POST:
+        form = ContactForm(request.POST)
         context = {
-            'form': ContactForm(request.POST)
+            'form': form
         }
-        print("Dados recebidos")
+        if form.is_valid():
+            print("Form Valido")
+            form.save()
+            return redirect("contact:create")
+
+
+
         return render(request,'contact/create.html',context)
     context = {
         'form': ContactForm()

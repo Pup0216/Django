@@ -33,7 +33,7 @@ class ContactForm(forms.ModelForm):
         name = self.cleaned_data.get('name')
         if len(name) < 4:
             raise ValidationError("Nome muito curto",code='invalid')
-        print(name)
+        
         return name
 
     
