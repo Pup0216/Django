@@ -7,7 +7,7 @@ from django import forms
 class ContactForm(forms.ModelForm):
     class Meta:
         model = Contact
-        fields = ('name','last_name','phone','description',)
+        fields = ('name','last_name','phone','email','description','category')
         widgets = {
             'name': forms.TextInput(
                 #atributos 
@@ -18,14 +18,22 @@ class ContactForm(forms.ModelForm):
             )
         }
     def clean(self):
-        cleaned_data = self.cleaned_data
-        self.add_error(
-            'name', ValidationError('Nome inválido',code='invalid')
-        )
-        #non_errors
-        self.add_error(
-            None, ValidationError('Error',code='invalid')
-        )
+        name = self.cleaned_data.get("name")
+        last_name = self.cleaned_data.get('last_name')
+
+        if name == last_name:
+            self.add_error(
+                'last_name',
+                ValidationError("O nome não deve ser igual ao seugndo",code='invalid')
+            )
+
 
         return super().clean()
+    def clean_name(self):
+        name = self.cleaned_data.get('name')
+        if len(name) < 4:
+            raise ValidationError("Nome muito curto",code='invalid')
+        print(name)
+        return name
+
     
