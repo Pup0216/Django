@@ -1,5 +1,8 @@
 from typing import Any
-from django.shortcuts import render,redirect
+from django.shortcuts import render,redirect,get_object_or_404
+from django.urls import reverse
+from contact.models import Contact
+
 
 #forms
 from contact.forms import ContactForm
@@ -8,24 +11,59 @@ from contact.forms import ContactForm
 # Create your views here.
 
 def create(request):
+    form_action = reverse('contact:create')
+
+
     if request.POST:
         form = ContactForm(request.POST)
         context = {
-            'form': form
+            'form': form,
+            'form_action': form_action
         }
         if form.is_valid():
             print("Form Valido")
-            form.save()
-            return redirect("contact:create")
+            contact = form.save()
+            print(contact)
+            print(contact.pk)
+            return redirect("contact:update",contact_id = contact.pk)
 
 
 
         return render(request,'contact/create.html',context)
     context = {
-        'form': ContactForm()
+        'form': ContactForm(),
+        'form_action' : form_action
     }
     return render(request,'contact/create.html',context)
 
+
+
+
+def update(request,contact_id):
+    form_action = reverse('contact:update', kwargs={'contact_id': contact_id})
+    print("_---------------")
+    contact = get_object_or_404(Contact,pk=contact_id,)
+
+
+    if request.POST:
+        form = ContactForm(request.POST, isinstance=contact)
+        context = {
+            'form': form,
+            'form_action': form_action
+        }
+        if form.is_valid():
+            print("Form Valido")
+            contact = form.save()
+            return redirect("contact:update",contact_id = contact.pk)
+
+
+
+        return render(request,'contact/create.html',context)
+    context = {
+        'form': ContactForm(isinstance=contact),
+        'form_action' : form_action
+    }
+    return render(request,'contact/create.html',context)
 
   
     
