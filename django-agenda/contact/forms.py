@@ -7,13 +7,18 @@ from django import forms
 class ContactForm(forms.ModelForm):
     class Meta:
         model = Contact
-        fields = ('name','last_name','phone','email','description','category')
+        fields = ('name','last_name','phone','email','description','category', 'picture')
         widgets = {
             'name': forms.TextInput(
                 #atributos 
                 attrs={
                     'class':'tese',
                     'placeholder': 'Nome'
+                }
+            ),
+            'picture' : forms.FileInput(
+                attrs={
+                    'accept': 'image/*'
                 }
             )
         }

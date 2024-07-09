@@ -53,7 +53,32 @@
     display: block;
     max-width: 100%;
   }
-  
+  .button{
+    background-color: gray;
+    padding: 10px;
+    border-radius: 10px;
+    text-align: center;
+    color: white;
+    text-decoration: none;
+    margin: 10px;
+  }
+  .button-delete{
+    background-color: rgb(227, 47, 47);
+    padding: 10px;
+    border-radius: 10px;
+    text-align: center;
+    color: white;
+    text-decoration: none;
+    cursor: pointer;
+    border: none;
+    margin: 10px;
+  }
+  .buttons{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: row;
+  }
   .header {
     background: var(--clr-black);
     padding: var(--spacing);
