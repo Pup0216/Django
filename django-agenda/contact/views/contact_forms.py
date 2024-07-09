@@ -40,13 +40,13 @@ def create(request):
 
 
 def update(request,contact_id):
-    form_action = reverse('contact:update', kwargs={'contact_id': contact_id})
+    form_action = reverse('contact:update', args=(contact_id,))
     print("_---------------")
     contact = get_object_or_404(Contact,pk=contact_id,)
 
 
     if request.POST:
-        form = ContactForm(request.POST, isinstance=contact)
+        form = ContactForm(request.POST, instance=contact)
         context = {
             'form': form,
             'form_action': form_action
@@ -60,7 +60,7 @@ def update(request,contact_id):
 
         return render(request,'contact/create.html',context)
     context = {
-        'form': ContactForm(isinstance=contact),
+        'form': ContactForm(instance=contact),
         'form_action' : form_action
     }
     return render(request,'contact/create.html',context)
