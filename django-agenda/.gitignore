@@ -2,3 +2,4 @@ static
 media/
 venv
 agenda/local_settings.py
+db.sqlite3
