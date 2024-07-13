@@ -273,7 +273,12 @@
     max-width: 60rem;
     margin: var(--spacing) auto;
   }
-  
+  .publication{
+    background-color: rgba(128, 128, 128, 0.472);
+    padding: 10px;
+    margin: 10px;
+    border-radius: 10px;
+  }
   .form-content {
     margin: var(--spacing) 0;
   }
