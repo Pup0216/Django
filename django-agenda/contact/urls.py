@@ -15,5 +15,9 @@ urlpatterns = [
     path('contact/<int:contact_id>/update/',views.update, name='update'),
     #user
     path("user/create", views.register, name="register"),
+    path('user/login',views.userLogin,name='login'),
+    path('user/logout',views.userLogout,name='logout'),
+    path('user/update',views.userUpdate,name='update'),
+
 
 ]
