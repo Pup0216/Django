@@ -3,7 +3,7 @@ from contact.forms import RegisterForm, UpdateForm
 from django.contrib import messages
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib import auth
-
+from django.contrib.auth.decorators import login_required
 
 def register(request):
     form = RegisterForm()
@@ -43,6 +43,8 @@ def userLogin(request):
     }
     return render(request,'contact/login.html',context)
 
+
+@login_required(login_url='contact:login') #caso o usuario não estja logado
 def userLogout(request):
     auth.logout(request)
     return redirect('contact:login')
@@ -50,6 +52,7 @@ def userLogout(request):
 
 
 #Normalmente não permitir o usuario atualizar o email e o user
+@login_required(login_url='contact:login') #caso o usuario não estja logado
 def userUpdate(request):
     form = UpdateForm(instance=request.user)
 
@@ -57,7 +60,7 @@ def userUpdate(request):
         form = UpdateForm(data=request.POST,instance=request.user)
         if form.is_valid():
             form.save()
-            messages.success("Dados atualizados")
+            messages.success(request,"Dados atualizados")
             return redirect('contact:index')
     context = {
         'form' : form,

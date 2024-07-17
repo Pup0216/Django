@@ -21,8 +21,10 @@ class ContactForm(forms.ModelForm):
             ),
             'picture' : forms.FileInput(
                 attrs={
-                    'accept': 'image/*'
-                }
+                    'accept': 'image/*',
+                    'required' : False
+                },
+                
             )
         }
     def clean(self):

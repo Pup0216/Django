@@ -16,14 +16,16 @@
             <img src="{{contact.picture.url}}" alt="{{contact.name}}" />
         {% endif %}
         <p><b>Created date:</b> {{contact.created_at}}</p>
+        
+        {% if user == contact.owner %}
         <div class="buttons">
             <a class="button primary-button" href="{% url "contact:update" contact.id %}">Update</a>
-        
             <form action="{% url "contact:delete" contact.id %}" method="POST">
                 {% csrf_token %}
                 <button type="submit" class="button-delete">Delete</button>
             </form>
         </div>
+        {% endif %}
     </div>
 
 {% endblock content %}
